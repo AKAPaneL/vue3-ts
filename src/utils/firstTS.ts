@@ -18,12 +18,14 @@ function sum(first:number,second:number):number {
 function say1():void{
 
 }
-const say2 = ()=>void{
+
+const say2 = ():void=>{
     
 }
 // 类型别名:自定义类型
 type NumberOrStringArr = Array<number|string>
 type NumberFn = (first:number,second:number) => number
+type anyFn = ()=>void
 
 const newFn:NumberFn = (num1,num2) => {
     return num1+num2
@@ -32,12 +34,60 @@ const newFn:NumberFn = (num1,num2) => {
 // 定义对象
 const obj1:{} = {}
 type CustomObj = {
-    name:string,
+    name:string
     age:number
+    fn:()=>void
 }
 const obj2:CustomObj ={
     name:'panel',
-    age:22
+    age:22,
+    fn(){
+        
+    }
+}
+
+
+// interface 使用
+interface Person {
+    name:string
+    age:number
+    fn:()=>void
+}
+
+interface man extends Person  {
+    gender:1
+}
+
+type woman ={
+    gender:0
+}&Person
+
+const a:woman = {
+    name:'panel',
+    age:23,
+    gender:0,
+    fn(){
+
+    }
+}
+
+// 泛型使用
+type Request<T> = {
+    url:string
+    methods:string
+    data:T
+}
+type UserInfo = {
+    name:string
+    password:string
+}
+const getUserInfoConfig:Request<UserInfo> = {
+    url:'/api/user',
+    methods:'post',
+    data:{
+        name:'panel',
+        password:'12345678'
+    }
 }
 
 
