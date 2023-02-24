@@ -1,4 +1,3 @@
-import { parse } from "@vue/compiler-dom"
 
 export {}
 const formatDate = (date?:string|Date):string=>{  //时间格式化函数
