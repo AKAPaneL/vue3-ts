@@ -1,12 +1,12 @@
 <script setup lang="ts">
-
+import ArticleList from './components/ArticleList.vue';
+import ChannelNav from './components/ChannelNav.vue';
 
 </script>
 
 <template>
-  <div>
-    首页
-  </div>
+  <ChannelNav></ChannelNav>
+  <ArticleList></ArticleList>
 </template>
 
 <style scoped>
