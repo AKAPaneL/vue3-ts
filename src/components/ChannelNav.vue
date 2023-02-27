@@ -2,11 +2,12 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { ChannelItem, ChannelResData } from '../types/data'
+import { useChannelStore } from '../store';
 
 const request = axios.create({
   baseURL: 'http://geek.itheima.net/v1_0'
 });
-
+//**---原始的父子组件数据传输实现---**
 const channelItem =ref<ChannelItem[]>([])
 const active = ref(0)
 
@@ -28,6 +29,9 @@ const changeItem = (id:number)=>{     //切换列表callback
 }
 getChannel()
 
+//**---使用 pinia 完成数据传输实现---**
+const store = useChannelStore()
+
 </script>
 
 <template>
@@ -35,11 +39,11 @@ getChannel()
     <nav class="list">
       <a
         class="item"
-        :class="{ active: item.id === active }"
+        :class="{ active: item.id === store.channelId }"
         href="javascript:;"
         v-for="item in channelItem"
         :key="item.id"
-        @click="changeItem(item.id)"
+        @click="store.changeChannel(item.id)"
       >
         {{ item.name }}
       </a>

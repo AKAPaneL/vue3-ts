@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch, ref } from 'vue';
 import { RootObject, Result } from '../types/data'
+import { useChannelStore } from '../store';
 import axios from 'axios'
 
 const request = axios.create({
@@ -10,6 +11,8 @@ const request = axios.create({
 const props = defineProps<{
   currentId: number
 }>()
+
+
 
 const articles = ref<Result[]>([])
 
@@ -23,6 +26,18 @@ watch(() => props.currentId, async () => {
   articles.value = res.data.data.results
 }, { immediate: true })
 
+//**---使用 pinia 完成数据传输实现---**
+
+const store = useChannelStore()
+watch(() => store.channelId, async () => {
+  const res = await request.get<RootObject>('/articles', {
+    params: {
+      channel_id: store.channelId,
+      timestamp: Date.now()
+    }
+  })
+  articles.value = res.data.data.results
+}, { immediate: true })
 </script>
 
 <template>
